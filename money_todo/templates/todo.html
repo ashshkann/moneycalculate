@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <form action="/creat-todo/" method="post">
+      {% csrf_token %}
+      <label for="inputMDEx1">Input Your Start Time</label>
+      <input type="time" id="inputMDEx1" class="form-control" name="StartTime">
+      <br/>
+      <label for="inputMDEx1">Input Your Start Time</label>
+      <input type="time" id="inputMDEx1" class="form-control" name="EndTime">
+      <br/>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+          <th scope="col">Job Time</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for model in todo_models %}
+          <tr>
+            <th scope="row">{{model.todo_date}}<br/>{{model.todo_day}}</th>
+            <td>{{model.todo_start_time}}</td>
+            <td>{{model.todo_end_time}}</td>
+            <td>{{model.todo_all_time}}</td>
+            <td>
+              <form action="/delet-todo/{{ model.id }}/" method = "post">{% csrf_token %}
+                  <input type="submit" value="Delete">
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock  %}
